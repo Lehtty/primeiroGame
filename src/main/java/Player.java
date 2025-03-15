@@ -1,5 +1,12 @@
+import java.awt.*;
 
-public class Player {
+public class Player extends Rectangle {
+    public boolean right;
+    public boolean up;
+    public boolean down;
+    public boolean left;
+    private int speed = 4;
+    private int currentSpeed;
     private String name;
     private int health;
     private int attackPower;
@@ -13,6 +20,24 @@ public class Player {
     private int currentManaPotion;
     private int currentStrengthPotion;
 
+    public Player(int x, int y) {
+        super(x, y, 32, 32);
+    }
+
+    public void tick() {
+        if (this.right && World.isFree(this.x + this.speed, this.y)) {
+            this.x += this.speed;
+        } else if (this.left && World.isFree(this.x - this.speed, this.y)) {
+            this.x -= this.speed;
+        }
+
+        if (this.up && World.isFree(this.x, this.y - this.speed)) {
+            this.y -= this.speed;
+        } else if (this.down && World.isFree(this.x, this.y + this.speed)) {
+            this.y += this.speed;
+        }
+
+    }
 
     public String getName() {
         return name;
